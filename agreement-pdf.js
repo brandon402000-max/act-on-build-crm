@@ -5,7 +5,7 @@
 async function buildAgreementPDF(d, PDFLibRef){
   const L = PDFLibRef || (typeof PDFLib !== "undefined" ? PDFLib : require("pdf-lib"));
   const { PDFDocument, StandardFonts, rgb } = L;
-  const NAVY = rgb(0.078,0.161,0.294), RED = rgb(0.702,0.149,0.118), GREY = rgb(0.353,0.392,0.439), INK = rgb(0.078,0.11,0.149), LINE = rgb(0.796,0.831,0.89), FILL = rgb(0.933,0.945,0.965);
+  const NAVY = rgb(0.2,0.329,0.529), RED = rgb(0.867,0.255,0.259), GREY = rgb(0.353,0.392,0.439), INK = rgb(0.078,0.11,0.149), LINE = rgb(0.796,0.831,0.89), FILL = rgb(0.933,0.945,0.965);
   const pdf = await PDFDocument.create();
   pdf.setTitle(`Residential Insurance Restoration Agreement — ${d.fields.owner||""}`);
   pdf.setAuthor(d.biz.name||"Act On Build");
@@ -35,9 +35,11 @@ async function buildAgreementPDF(d, PDFLibRef){
 
   // ---------- page 1 header ----------
   newPage();
-  page.drawText((b.name||"ACT ON BUILD").toUpperCase(),{x:M,y:y-20,size:22,font:bold,color:NAVY});
-  page.drawLine({start:{x:M,y:y-28},end:{x:W-M,y:y-28},thickness:2.5,color:RED});
-  y-=38;
+  let lx=M;
+  if(d.logo){ try{ const lg=await pdf.embedJpg(d.logo); const lh=44, lw=lg.width*(lh/lg.height); page.drawImage(lg,{x:M,y:y-lh,width:lw,height:lh}); lx=M+lw+12; }catch(e){} }
+  page.drawText((b.name||"ACT ON BUILD").toUpperCase(),{x:lx,y:y-30,size:22,font:bold,color:NAVY});
+  page.drawLine({start:{x:M,y:y-52},end:{x:W-M,y:y-52},thickness:2.5,color:RED});
+  y-=62;
   const co=[b.address,b.phone,b.email,b.license?`Lic. ${b.license}`:""].filter(Boolean).join("   ·   ");
   page.drawText(co,{x:M,y:y-8,size:8.5,font,color:GREY}); y-=22;
   page.drawText("Residential Insurance Restoration Agreement",{x:M,y:y-16,size:17,font:bold,color:NAVY}); y-=22;
