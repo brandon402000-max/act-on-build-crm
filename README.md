@@ -1,6 +1,6 @@
-# Negotiators Express CRM
+# Act On Build CRM
 
-Personal claims CRM for BB's property-insurance negotiation business.
+Claims CRM for Act On Build — carrier RCV, paid, depreciation held, supplements pending, follow-ups, contacts.
 Single-file app (`index.html`) — pipeline, contacts, follow-ups, and fee tracking.
 
 - Live app: published as a Claude artifact (data syncs across devices via the artifact database).

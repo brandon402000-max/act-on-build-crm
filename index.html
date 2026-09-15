@@ -1,153 +1,177 @@
-<title>Negotiators Express CRM</title>
+<title>Act On Build CRM</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,500;87.5,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,600;87.5,800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
 :root{
-  --bg:#F2F4F6; --surface:#FFFFFF; --surface-2:#E9EDF1; --line:#D4DAE1;
-  --ink:#16212B; --ink-2:#4A5763; --ink-3:#7C8792;
-  --accent:#1F7A5C; --accent-ink:#FFFFFF; --accent-soft:#DDF1E8;
-  --warn:#B45309; --warn-soft:#FDEBD3; --crit:#B42318; --crit-soft:#FBE3E0;
-  --money:#1F7A5C; --shadow:0 1px 2px rgba(22,33,43,.06),0 8px 24px rgba(22,33,43,.06);
+  --bg:#F3F5F9; --surface:#FFFFFF; --surface-2:#E8EDF5; --line:#CBD4E3;
+  --ink:#121D33; --ink-2:#465470; --ink-3:#77839B;
+  --navy:#14294B; --navy-ink:#FFFFFF; --navy-soft:#DCE5F3;
+  --red:#B3261E; --red-ink:#FFFFFF; --red-soft:#F8E1DF;
+  --blue:#2F5FA8; --blue-soft:#DCE5F3;
+  --good:#1F7A4D; --good-soft:#DCEFE4;
+  --warn:#A65F00; --warn-soft:#F8EAD0;
+  --shadow:0 1px 2px rgba(18,29,51,.06),0 8px 24px rgba(18,29,51,.07);
   --display:"Archivo","Arial Narrow",Arial,sans-serif;
-  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",Menlo,Consolas,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0F151B; --surface:#18212A; --surface-2:#212C37; --line:#2E3A46;
-  --ink:#E6EBF0; --ink-2:#AEB9C4; --ink-3:#7C8792;
-  --accent:#3FB48C; --accent-ink:#0F151B; --accent-soft:#173B30;
-  --warn:#F0A048; --warn-soft:#3D2A10; --crit:#F0736A; --crit-soft:#3F1A17;
-  --money:#3FB48C; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --bg:#0C1526; --surface:#15223A; --surface-2:#1C2C48; --line:#2C3D5C;
+  --ink:#E8EDF5; --ink-2:#AFBBD0; --ink-3:#7F8CA6;
+  --navy:#0A1225; --navy-ink:#E8EDF5; --navy-soft:#1C2C48;
+  --red:#E0554B; --red-ink:#0C1526; --red-soft:#3B1A1A;
+  --blue:#7FA6E6; --blue-soft:#1C2C48;
+  --good:#5CC48E; --good-soft:#153627;
+  --warn:#E8A94A; --warn-soft:#3A2A10;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   color-scheme:dark;}}
 :root[data-theme="dark"]{
-  --bg:#0F151B; --surface:#18212A; --surface-2:#212C37; --line:#2E3A46;
-  --ink:#E6EBF0; --ink-2:#AEB9C4; --ink-3:#7C8792;
-  --accent:#3FB48C; --accent-ink:#0F151B; --accent-soft:#173B30;
-  --warn:#F0A048; --warn-soft:#3D2A10; --crit:#F0736A; --crit-soft:#3F1A17;
-  --money:#3FB48C; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --bg:#0C1526; --surface:#15223A; --surface-2:#1C2C48; --line:#2C3D5C;
+  --ink:#E8EDF5; --ink-2:#AFBBD0; --ink-3:#7F8CA6;
+  --navy:#0A1225; --navy-ink:#E8EDF5; --navy-soft:#1C2C48;
+  --red:#E0554B; --red-ink:#0C1526; --red-soft:#3B1A1A;
+  --blue:#7FA6E6; --blue-soft:#1C2C48;
+  --good:#5CC48E; --good-soft:#153627;
+  --warn:#E8A94A; --warn-soft:#3A2A10;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   color-scheme:dark;}
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
-h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;margin:0;text-wrap:balance}
 .num{font-variant-numeric:tabular-nums}
-.mono{font-family:var(--mono);font-size:.86em}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:.86em;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);color:var(--navy-ink);border-bottom:4px solid var(--red)}
 .top-in{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.brand{display:flex;align-items:baseline;gap:8px}
-.brand h1{font-size:19px;text-transform:uppercase;letter-spacing:.04em}
-.brand span{color:var(--ink-3);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
-.sync{margin-left:auto;font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:6px}
-.sync i{width:8px;height:8px;border-radius:50%;background:var(--ink-3);display:inline-block}
-.sync.on i{background:var(--accent)}
-.sync.local i{background:var(--warn)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:26px;height:26px;background:var(--red);clip-path:polygon(0 100%,50% 0,100% 100%,72% 100%,50% 48%,28% 100%)}
+.brand h1{font-size:20px;text-transform:uppercase;letter-spacing:.06em}
+.brand span{font-size:11px;text-transform:uppercase;letter-spacing:.14em;opacity:.7}
+.sync{margin-left:auto;font-size:12px;opacity:.85;display:flex;align-items:center;gap:6px}
+.sync i{width:8px;height:8px;border-radius:50%;background:#7F8CA6;display:inline-block}
+.sync.on i{background:#5CC48E}
+.sync.local i{background:#E8A94A}
 
 /* money strip */
-.strip{max-width:1100px;margin:0 auto;padding:16px 16px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0}
-.tile .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
-.tile .v{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.2;margin-top:2px}
-.tile .v.money{color:var(--money)}
-.tile .v.crit{color:var(--crit)}
+.strip{max-width:1100px;margin:0 auto;padding:16px 16px 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:4px;padding:12px 14px;min-width:0}
+.tile.paid{border-top-color:var(--good)}
+.tile.coming{border-top-color:var(--blue)}
+.tile.pending{border-top-color:var(--red)}
+.tile.due{border-top-color:var(--warn)}
+.tile .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600}
+.tile .v{font-family:var(--mono);font-weight:700;font-size:22px;line-height:1.2;margin-top:2px;letter-spacing:-.02em}
+.tile.paid .v{color:var(--good)} .tile.coming .v{color:var(--blue)} .tile.pending .v{color:var(--red)}
+.tile .v.crit{color:var(--red)}
 .tile .s{font-size:12px;color:var(--ink-2)}
-@media (max-width:640px){.strip{grid-template-columns:1fr 1fr}.tile .v{font-size:20px}}
+@media (max-width:820px){.strip{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.strip{grid-template-columns:1fr 1fr}.tile .v{font-size:19px}}
 
 /* nav */
 .nav{max-width:1100px;margin:0 auto;padding:14px 16px 0;display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
-.nav button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;color:var(--ink-2);font-weight:500;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
-.nav button[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
-.nav .badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--crit-soft);color:var(--crit);font-size:11px;font-weight:600;margin-left:4px;text-align:center}
+.nav button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 12px;color:var(--ink-2);font-weight:600;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.nav button[aria-selected="true"]{color:var(--ink);border-color:var(--red)}
+.nav .badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--red);color:var(--red-ink);font-size:11px;font-weight:700;margin-left:4px;text-align:center}
 
 main{max-width:1100px;margin:0 auto;padding:16px 16px 40px}
 .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
-.toolbar input[type=search]{flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-.toolbar select{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px 12px;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn.danger{color:var(--crit)}
+.toolbar input[type=search]{flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.toolbar select{padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:8px 12px;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--red);color:var(--red-ink);border-color:var(--red)}
+.btn.danger{color:var(--red)}
 .btn.sm{padding:4px 9px;font-size:13px}
 
 /* pipeline */
 .stages{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.stage-chip{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;background:var(--surface);display:flex;gap:8px;align-items:baseline;cursor:pointer}
-.stage-chip b{font-family:var(--display)}
-.stage-chip.active{border-color:var(--accent);background:var(--accent-soft)}
+.stage-chip{border:1px solid var(--line);border-radius:4px;padding:5px 10px;font-size:13px;background:var(--surface);display:flex;gap:8px;align-items:baseline;cursor:pointer}
+.stage-chip b{font-family:var(--mono);font-size:12px}
+.stage-chip.active{border-color:var(--navy);background:var(--navy-soft)}
 .list{display:grid;gap:8px}
-.row{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:4px 1fr auto;gap:12px;align-items:center;cursor:pointer}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:grid;grid-template-columns:4px 1fr auto;gap:12px;align-items:center;cursor:pointer}
 .row:hover{box-shadow:var(--shadow)}
-.row .bar{width:4px;height:100%;min-height:36px;border-radius:2px;background:var(--line)}
-.row .bar[data-s="Lead"]{background:#8A94A0}
-.row .bar[data-s="Signed"]{background:#4C7BD9}
-.row .bar[data-s="Estimate"]{background:#7B61C9}
-.row .bar[data-s="Submitted"]{background:#2A9DB5}
-.row .bar[data-s="Negotiating"]{background:var(--warn)}
-.row .bar[data-s="Settled"]{background:var(--accent)}
-.row .bar[data-s="Paid"]{background:var(--accent)}
+.row .bar{width:4px;height:100%;min-height:40px;border-radius:2px;background:var(--line)}
+.row .bar[data-s="Lead"]{background:var(--ink-3)}
+.row .bar[data-s="Estimate"]{background:var(--blue)}
+.row .bar[data-s="Submitted"]{background:var(--blue)}
+.row .bar[data-s="Approved"]{background:var(--navy)}
+.row .bar[data-s="In Progress"]{background:var(--navy)}
+.row .bar[data-s="Supplement"]{background:var(--red)}
+.row .bar[data-s="Paid"]{background:var(--good)}
+.row .bar[data-s="Lost"]{background:var(--line)}
 .row .t{font-weight:600}
-.row .m{font-size:13px;color:var(--ink-2);display:flex;gap:10px;flex-wrap:wrap}
+.row .m{font-size:13px;color:var(--ink-2);display:flex;gap:4px 12px;flex-wrap:wrap}
 .row .r{text-align:right}
-.row .r .amt{font-family:var(--display);font-size:18px;font-weight:700}
-.row .r .fee{font-size:12px;color:var(--money)}
-.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:500;background:var(--surface-2);color:var(--ink-2)}
+.row .r .amt{font-family:var(--mono);font-size:17px;font-weight:700}
+.row .r .sub{font-size:12px;color:var(--ink-2)}
+.row .r .sub.red{color:var(--red);font-weight:600}
+.pill{display:inline-block;padding:1px 8px;border-radius:3px;font-size:11.5px;font-weight:600;background:var(--surface-2);color:var(--ink-2);letter-spacing:.02em}
 .pill.due{background:var(--warn-soft);color:var(--warn)}
-.pill.over{background:var(--crit-soft);color:var(--crit)}
-.empty{border:1px dashed var(--line);border-radius:6px;padding:28px;text-align:center;color:var(--ink-2)}
+.pill.over{background:var(--red-soft);color:var(--red)}
+.pill.paid{background:var(--good-soft);color:var(--good)}
+.pill.supp{background:var(--red-soft);color:var(--red)}
+.empty{border:1px dashed var(--line);border-radius:4px;padding:28px;text-align:center;color:var(--ink-2)}
 .empty h3{color:var(--ink);margin-bottom:6px}
 
 /* contacts */
 .c-row{grid-template-columns:1fr auto}
-.role{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
-.c-row a{color:var(--accent);text-decoration:none}
+.role{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600}
+.c-row a{color:var(--blue);text-decoration:none}
 
 /* tasks */
-.task{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
 .task.done{opacity:.55}
 .task.done .tt{text-decoration:line-through}
-.task input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.task input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy)}
 .task .sub{font-size:13px;color:var(--ink-2)}
 .section-h{display:flex;align-items:baseline;justify-content:space-between;margin:18px 0 8px}
-.section-h h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.section-h h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2)}
 
 /* drawer */
-.overlay{position:fixed;inset:0;background:rgba(10,15,20,.45);z-index:20;display:flex;justify-content:flex-end}
+.overlay{position:fixed;inset:0;background:rgba(10,18,37,.5);z-index:20;display:flex;justify-content:flex-end}
 .overlay[hidden]{display:none}
-.drawer{background:var(--surface);width:min(560px,100%);height:100%;overflow-y:auto;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--line)}
+.drawer{background:var(--surface);width:min(580px,100%);height:100%;overflow-y:auto;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;border-left:4px solid var(--navy)}
 .drawer h2{font-size:22px}
+.drawer h3{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);margin-top:6px;padding-top:12px;border-top:1px solid var(--line)}
 .f{display:flex;flex-direction:column;gap:4px}
-.f label{font-size:12px;color:var(--ink-2);font-weight:500}
-.f input,.f select,.f textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.f label{font-size:12px;color:var(--ink-2);font-weight:600}
+.f input,.f select,.f textarea{padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg)}
 .f textarea{min-height:80px;resize:vertical}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:480px){.grid2{grid-template-columns:1fr}}
 .actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
 .actions .spacer{margin-right:auto}
-.calc{background:var(--accent-soft);border-radius:6px;padding:10px 12px;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.calc b{font-family:var(--display);font-size:18px;color:var(--money)}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;z-index:30;box-shadow:var(--shadow)}
+.ledger{background:var(--surface-2);border-radius:4px;padding:10px 12px;font-size:13px;display:grid;grid-template-columns:1fr auto;gap:4px 12px}
+.ledger b{font-family:var(--mono);text-align:right}
+.ledger .tot{border-top:1px solid var(--line);padding-top:4px;margin-top:2px;font-weight:600}
+.ledger .tot b{color:var(--blue)}
+.ledger .pend b{color:var(--red)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:var(--navy-ink);padding:8px 14px;border-radius:4px;font-size:13px;z-index:30;box-shadow:var(--shadow)}
 .toast[hidden]{display:none}
 @media (prefers-reduced-motion:no-preference){.row,.task{transition:box-shadow .15s}}
 </style>
 
 <header class="top"><div class="top-in">
-  <div class="brand"><h1>Negotiators Express</h1><span>Claims CRM</span></div>
+  <div class="brand"><div class="mark" aria-hidden="true"></div><div><h1>Act On Build</h1></div><span>Claims CRM</span></div>
   <div class="sync" id="sync"><i></i><span id="syncText">Connecting…</span></div>
 </div></header>
 
 <section class="strip" aria-label="Money at a glance">
-  <div class="tile"><div class="l">Open pipeline</div><div class="v money num" id="kOpen">$0</div><div class="s" id="kOpenS">0 active claims</div></div>
-  <div class="tile"><div class="l">Fees expected</div><div class="v money num" id="kFees">$0</div><div class="s">on open claims</div></div>
-  <div class="tile"><div class="l">Fees collected</div><div class="v num" id="kPaid">$0</div><div class="s" id="kPaidS">0 paid</div></div>
-  <div class="tile"><div class="l">Follow-ups due</div><div class="v num" id="kDue">0</div><div class="s" id="kDueS">nothing overdue</div></div>
+  <div class="tile"><div class="l">Approved by carriers</div><div class="v num" id="kRcv">$0</div><div class="s" id="kRcvS">0 claims</div></div>
+  <div class="tile paid"><div class="l">Paid to date</div><div class="v num" id="kPaid">$0</div><div class="s">checks received</div></div>
+  <div class="tile coming"><div class="l">Still coming</div><div class="v num" id="kComing">$0</div><div class="s" id="kComingS">approved, not released</div></div>
+  <div class="tile pending"><div class="l">Supplements pending</div><div class="v num" id="kSupp">$0</div><div class="s">asked, not agreed</div></div>
+  <div class="tile due"><div class="l">Follow-ups due</div><div class="v num" id="kDue">0</div><div class="s" id="kDueS">nothing overdue</div></div>
 </section>
 
 <nav class="nav" role="tablist">
-  <button role="tab" id="tab-pipeline" aria-selected="true" data-view="pipeline">Pipeline</button>
+  <button role="tab" id="tab-pipeline" aria-selected="true" data-view="pipeline">Claims</button>
   <button role="tab" id="tab-followups" aria-selected="false" data-view="followups">Follow-ups <span class="badge" id="fuBadge" hidden>0</span></button>
   <button role="tab" id="tab-contacts" aria-selected="false" data-view="contacts">Contacts</button>
 </nav>
@@ -155,7 +179,7 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 40px}
 <main>
   <section id="v-pipeline">
     <div class="toolbar">
-      <input type="search" id="qClaims" placeholder="Search claimant, carrier, claim #…" aria-label="Search claims">
+      <input type="search" id="qClaims" placeholder="Search claimant, carrier, claim #, adjuster…" aria-label="Search claims">
       <button class="btn primary" id="addClaim">+ New claim</button>
     </div>
     <div class="stages" id="stages"></div>
@@ -187,68 +211,63 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 40px}
 (function(){
 "use strict";
 const $=s=>document.querySelector(s);
-const STAGES=["Lead","Signed","Estimate","Submitted","Negotiating","Settled","Paid","Lost"];
-const OPEN=new Set(["Lead","Signed","Estimate","Submitted","Negotiating","Settled"]);
-const ROLES=["Claimant","Adjuster","Public Adjuster","Contractor","Attorney","Referral Source","Carrier Rep","Other"];
-const money=n=>"$"+(Math.round(+n||0)).toLocaleString("en-US");
+const STAGES=["Lead","Estimate","Submitted","Approved","In Progress","Supplement","Paid","Lost"];
+const ROLES=["Claimant","Adjuster","Carrier Rep","Public Adjuster","Mitigation","Sub / Trade","Attorney","Referral Source","Other"];
+const money=n=>{n=+n||0;const s="$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return n<0?"("+s+")":s;};
+const money0=n=>"$"+Math.round(+n||0).toLocaleString("en-US");
 const today=()=>new Date().toISOString().slice(0,10);
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtDate=d=>{if(!d)return"";const [y,m,dd]=d.split("-");return `${+m}/${+dd}/${y.slice(2)}`;};
 
-// ---------- storage: db capability with localStorage fallback ----------
+// ---------- storage ----------
 const state={claims:{},contacts:{},tasks:{}};
-let db=null, mode="local";
-const LS="nx-crm-v1";
+let db=null;
+const LS="aob-crm-v2";
 function lsLoad(){try{const j=JSON.parse(localStorage.getItem(LS)||"null");if(j)Object.assign(state,j);}catch(e){}}
 function lsSave(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
 const store={
-  async put(col,id,data){
-    state[col][id]=data; render();
-    if(db){ try{ await db.doc(col+"/"+id).set(data); }catch(e){ toast("Save failed — "+(e.code||"error")); } }
-    else lsSave();
-  },
-  async del(col,id){
-    delete state[col][id]; render();
-    if(db){ try{ await db.doc(col+"/"+id).delete(); }catch(e){ toast("Delete failed"); } }
-    else lsSave();
-  }
+  async put(col,id,data){ state[col][id]=data; render();
+    if(db){ try{ await db.doc(col+"/"+id).set(data); }catch(e){ toast("Save failed — "+(e.code||"error")); } } else lsSave(); },
+  async del(col,id){ delete state[col][id]; render();
+    if(db){ try{ await db.doc(col+"/"+id).delete(); }catch(e){ toast("Delete failed"); } } else lsSave(); }
 };
-function setSync(m,txt){const el=$("#sync");el.className="sync "+m;$("#syncText").textContent=txt;}
+function setSync(m,txt){$("#sync").className="sync "+m;$("#syncText").textContent=txt;}
 async function boot(){
   lsLoad(); render();
   const c=window.claude&&window.claude.use?await window.claude.use("db").catch(()=>null):null;
-  if(!c){ mode="local"; setSync("local","Saved on this device only"); return; }
-  db=c; mode="db";
+  if(!c){ setSync("local","Saved on this device only"); return; }
+  db=c;
   for(const col of ["claims","contacts","tasks"]){
     db.collection(col).onSnapshot(snap=>{
       const next={}; snap.docs.forEach(d=>{ if(d.exists) next[d.id]=d.data(); });
-      state[col]=next; render();
-      setSync("on", snap.metadata.fromCache?"Syncing…":"Synced");
+      state[col]=next; render(); setSync("on", snap.metadata.fromCache?"Syncing…":"Synced");
     }, err=>{ setSync("local","Sync lost ("+err.code+")"); });
   }
 }
 
-// ---------- derived ----------
-const fee=c=>{ const base=+c.settledAmount||+c.offerAmount||+c.estimateAmount||0; return +c.feeAmount||base*((+c.feePct||0)/100); };
+// ---------- money math ----------
+const N=v=>+v||0;
+function ledger(c){
+  const rcv=N(c.rcv), ded=N(c.deductible), paid=N(c.paid), dep=N(c.depHeld);
+  const remaining=rcv-ded-paid;            // approved, not yet in hand (incl. held depreciation)
+  const now=remaining-dep;                 // releasable now
+  return {rcv,ded,paid,dep,remaining,now,supp:N(c.supplementPending),est:N(c.ourEstimate)};
+}
 function taskStatus(t){ if(t.done)return"done"; if(!t.due)return"open"; const d=today(); return t.due<d?"over":t.due===d?"due":"open"; }
-function contactName(id){ return id&&state.contacts[id]?state.contacts[id].name:""; }
+const cname=id=>id&&state.contacts[id]?state.contacts[id].name:"";
 
 // ---------- render ----------
-let view="pipeline", stageFilter="";
+let stageFilter="";
 function render(){ renderKPIs(); renderPipeline(); renderTasks(); renderContacts(); }
 function renderKPIs(){
-  const cl=Object.values(state.claims);
-  const open=cl.filter(c=>OPEN.has(c.stage));
-  const openVal=open.reduce((s,c)=>s+(+c.settledAmount||+c.offerAmount||+c.estimateAmount||0),0);
-  const fees=open.reduce((s,c)=>s+fee(c),0);
-  const paid=cl.filter(c=>c.stage==="Paid");
-  const paidFees=paid.reduce((s,c)=>s+fee(c),0);
+  const cl=Object.values(state.claims).filter(c=>c.stage!=="Lost");
+  let rcv=0,paid=0,coming=0,supp=0,n=0;
+  cl.forEach(c=>{ const l=ledger(c); if(l.rcv){n++;rcv+=l.rcv;paid+=l.paid;coming+=Math.max(0,l.remaining);} supp+=l.supp; });
+  $("#kRcv").textContent=money0(rcv); $("#kRcvS").textContent=`${n} claim${n===1?"":"s"} with carrier figures`;
+  $("#kPaid").textContent=money0(paid); $("#kComing").textContent=money0(coming); $("#kSupp").textContent=money0(supp);
   const ts=Object.values(state.tasks).filter(t=>!t.done);
   const over=ts.filter(t=>taskStatus(t)==="over").length, due=ts.filter(t=>taskStatus(t)==="due").length;
-  $("#kOpen").textContent=money(openVal); $("#kOpenS").textContent=`${open.length} active claim${open.length===1?"":"s"}`;
-  $("#kFees").textContent=money(fees);
-  $("#kPaid").textContent=money(paidFees); $("#kPaidS").textContent=`${paid.length} paid`;
   const k=$("#kDue"); k.textContent=over+due; k.className="v num"+(over?" crit":"");
   $("#kDueS").textContent=over?`${over} overdue`:due?"all due today":"nothing overdue";
   const b=$("#fuBadge"); b.hidden=!(over+due); b.textContent=over+due;
@@ -258,74 +277,86 @@ function renderPipeline(){
   const all=Object.entries(state.claims).map(([id,c])=>({id,...c}));
   const counts={}; all.forEach(c=>counts[c.stage]=(counts[c.stage]||0)+1);
   $("#stages").innerHTML=STAGES.map(s=>`<button class="stage-chip${stageFilter===s?" active":""}" data-s="${s}">${s} <b class="num">${counts[s]||0}</b></button>`).join("");
-  let rows=all.filter(c=>!stageFilter||c.stage===stageFilter)
-    .filter(c=>!q||[c.claimant,c.carrier,c.claimNumber,c.lossType,c.address].join(" ").toLowerCase().includes(q))
-    .sort((a,b)=>STAGES.indexOf(a.stage)-STAGES.indexOf(b.stage)||(b.updatedAt||"").localeCompare(a.updatedAt||""));
+  const rows=all.filter(c=>!stageFilter||c.stage===stageFilter)
+    .filter(c=>!q||[c.claimant,c.carrier,c.claimNumber,c.lossType,c.address,cname(c.adjusterId)].join(" ").toLowerCase().includes(q))
+    .sort((a,b)=>STAGES.indexOf(a.stage)-STAGES.indexOf(b.stage)||(a.claimant||"").localeCompare(b.claimant||""));
   const list=$("#claimList");
-  if(!rows.length){ list.innerHTML=`<div class="empty"><h3>${all.length?"No claims match":"No claims yet"}</h3>${all.length?"":"Add your first claim — every one you track here shows up in the money strip above."}</div>`; return; }
+  if(!rows.length){ list.innerHTML=`<div class="empty"><h3>${all.length?"No claims match":"No claims yet"}</h3>${all.length?"":"Add a claim — every carrier figure you enter rolls up into the money strip."}</div>`; return; }
   list.innerHTML=rows.map(c=>{
-    const amt=+c.settledAmount||+c.offerAmount||+c.estimateAmount||0;
-    const label=c.settledAmount?"settled":c.offerAmount?"offer":c.estimateAmount?"estimate":"";
-    const nxt=c.nextDate?`<span class="pill ${c.nextDate<today()?"over":c.nextDate===today()?"due":""}">${esc(c.nextAction||"Follow up")} · ${fmtDate(c.nextDate)}</span>`:"";
+    const l=ledger(c);
+    let amt,sub,cls="";
+    if(l.rcv){ amt=money0(l.rcv); sub=c.stage==="Paid"?"paid in full":`${money0(Math.max(0,l.remaining))} still coming`; }
+    else if(l.est){ amt=money0(l.est); sub="our estimate"; }
+    else { amt="—"; sub="no figure yet"; }
+    if(l.supp){ sub+=` · ${money0(l.supp)} supplement`; cls="red"; }
+    const nxt=c.nextDate?`<span class="pill ${c.nextDate<today()?"over":c.nextDate===today()?"due":""}">${esc(c.nextAction||"Follow up")} · ${fmtDate(c.nextDate)}</span>`:(c.nextAction?`<span class="pill">${esc(c.nextAction)}</span>`:"");
+    const adj=cname(c.adjusterId);
     return `<div class="row" data-claim="${c.id}"><div class="bar" data-s="${esc(c.stage)}"></div>
-      <div><div class="t">${esc(c.claimant||"(no claimant)")} <span class="pill">${esc(c.stage)}</span></div>
-      <div class="m">${c.lossType?`<span>${esc(c.lossType)}</span>`:""}${c.carrier?`<span>${esc(c.carrier)}</span>`:""}${c.claimNumber?`<span class="mono">#${esc(c.claimNumber)}</span>`:""}${nxt}</div></div>
-      <div class="r"><div class="amt num">${amt?money(amt):"—"}</div><div class="fee num">${amt?`${label} · fee ${money(fee(c))}`:"no figure yet"}</div></div></div>`;
+      <div><div class="t">${esc(c.claimant||"(no claimant)")} ${c.label?`<span style="color:var(--ink-3);font-weight:400">· ${esc(c.label)}</span>`:""} <span class="pill ${c.stage==="Paid"?"paid":c.stage==="Supplement"?"supp":""}">${esc(c.stage)}</span></div>
+      <div class="m">${c.lossType?`<span>${esc(c.lossType)}</span>`:""}${c.carrier?`<span>${esc(c.carrier)}</span>`:""}${c.claimNumber?`<span class="mono">${esc(c.claimNumber)}</span>`:""}${adj?`<span>adj. ${esc(adj)}</span>`:""}${nxt}</div></div>
+      <div class="r"><div class="amt num">${amt}</div><div class="sub ${cls}">${sub}</div></div></div>`;
   }).join("");
 }
 function renderTasks(){
   const showDone=$("#showDone").checked;
-  const ts=Object.entries(state.tasks).map(([id,t])=>({id,...t})).filter(t=>showDone||!t.done)
-    .sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999"));
+  const ts=Object.entries(state.tasks).map(([id,t])=>({id,...t})).filter(t=>showDone||!t.done).sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999"));
   const groups={over:[],due:[],open:[],done:[]}; ts.forEach(t=>groups[taskStatus(t)].push(t));
   const titles={over:"Overdue",due:"Due today",open:"Coming up",done:"Completed"};
   const el=$("#taskGroups");
   if(!ts.length){ el.innerHTML=`<div class="empty"><h3>No follow-ups</h3>Every open claim should have a next call, email, or document on the calendar.</div>`; return; }
-  el.innerHTML=Object.keys(groups).filter(k=>groups[k].length).map(k=>`<div class="section-h"><h2>${titles[k]}</h2><span class="num" style="color:var(--ink-3);font-size:13px">${groups[k].length}</span></div><div class="list">`+
-    groups[k].map(t=>`<div class="task${t.done?" done":""}" data-task="${t.id}"><input type="checkbox" ${t.done?"checked":""} aria-label="Done" data-toggle="${t.id}"><div><div class="tt">${esc(t.title)}</div><div class="sub">${t.claimId&&state.claims[t.claimId]?esc(state.claims[t.claimId].claimant)+" · ":""}${t.due?`<span class="pill ${k==="over"?"over":k==="due"?"due":""}">${fmtDate(t.due)}</span>`:"no date"}</div></div><button class="btn sm" data-edit-task="${t.id}">Edit</button></div>`).join("")+"</div>").join("");
+  el.innerHTML=Object.keys(groups).filter(k=>groups[k].length).map(k=>`<div class="section-h"><h2>${titles[k]}</h2><span class="num mono" style="color:var(--ink-3)">${groups[k].length}</span></div><div class="list">`+
+    groups[k].map(t=>`<div class="task${t.done?" done":""}"><input type="checkbox" ${t.done?"checked":""} aria-label="Done" data-toggle="${t.id}"><div><div class="tt">${esc(t.title)}</div><div class="sub">${t.claimId&&state.claims[t.claimId]?esc(state.claims[t.claimId].claimant)+(state.claims[t.claimId].label?" · "+esc(state.claims[t.claimId].label):"")+" · ":""}${t.due?`<span class="pill ${k==="over"?"over":k==="due"?"due":""}">${fmtDate(t.due)}</span>`:"no date"}</div></div><button class="btn sm" data-edit-task="${t.id}">Edit</button></div>`).join("")+"</div>").join("");
 }
 function renderContacts(){
   const q=($("#qContacts").value||"").toLowerCase(), rf=$("#roleFilter").value;
-  const rows=Object.entries(state.contacts).map(([id,c])=>({id,...c}))
-    .filter(c=>!rf||c.role===rf).filter(c=>!q||[c.name,c.company,c.phone,c.email].join(" ").toLowerCase().includes(q))
-    .sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+  const rows=Object.entries(state.contacts).map(([id,c])=>({id,...c})).filter(c=>!rf||c.role===rf)
+    .filter(c=>!q||[c.name,c.company,c.phone,c.email].join(" ").toLowerCase().includes(q)).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
   const list=$("#contactList");
-  if(!rows.length){ list.innerHTML=`<div class="empty"><h3>${Object.keys(state.contacts).length?"No contacts match":"No contacts yet"}</h3>Claimants, adjusters, contractors, and the people who send you work.</div>`; return; }
-  list.innerHTML=rows.map(c=>`<div class="row c-row" data-contact="${c.id}"><div><div class="role">${esc(c.role||"Contact")}${c.company?" · "+esc(c.company):""}</div><div class="t">${esc(c.name)}</div>
+  if(!rows.length){ list.innerHTML=`<div class="empty"><h3>${Object.keys(state.contacts).length?"No contacts match":"No contacts yet"}</h3>Claimants, adjusters, subs, and the people who send you work.</div>`; return; }
+  list.innerHTML=rows.map(c=>{
+    const n=Object.values(state.claims).filter(x=>x.contactId===c.id||x.adjusterId===c.id).length;
+    return `<div class="row c-row" data-contact="${c.id}"><div><div class="role">${esc(c.role||"Contact")}${c.company?" · "+esc(c.company):""}</div><div class="t">${esc(c.name)}</div>
     <div class="m">${c.phone?`<a href="tel:${esc(c.phone)}" onclick="event.stopPropagation()">${esc(c.phone)}</a>`:""}${c.email?`<a href="mailto:${esc(c.email)}" onclick="event.stopPropagation()">${esc(c.email)}</a>`:""}</div></div>
-    <div class="r num" style="font-size:13px;color:var(--ink-2)">${Object.values(state.claims).filter(x=>x.contactId===c.id).length||""}${Object.values(state.claims).some(x=>x.contactId===c.id)?" claims":""}</div></div>`).join("");
+    <div class="r" style="font-size:13px;color:var(--ink-2)">${n?`${n} claim${n===1?"":"s"}`:""}</div></div>`;}).join("");
 }
 
 // ---------- drawers ----------
 const opt=(arr,v)=>arr.map(x=>`<option ${x===v?"selected":""}>${esc(x)}</option>`).join("");
-const contactOpts=v=>`<option value="">— none —</option>`+Object.entries(state.contacts).sort((a,b)=>(a[1].name||"").localeCompare(b[1].name||"")).map(([id,c])=>`<option value="${id}" ${id===v?"selected":""}>${esc(c.name)}</option>`).join("");
-const claimOpts=v=>`<option value="">— none —</option>`+Object.entries(state.claims).map(([id,c])=>`<option value="${id}" ${id===v?"selected":""}>${esc(c.claimant)} (${esc(c.stage)})</option>`).join("");
+const contactOpts=(v,roles)=>`<option value="">— none —</option>`+Object.entries(state.contacts).filter(([,c])=>!roles||roles.includes(c.role)).sort((a,b)=>(a[1].name||"").localeCompare(b[1].name||"")).map(([id,c])=>`<option value="${id}" ${id===v?"selected":""}>${esc(c.name)}${c.company?" ("+esc(c.company)+")":""}</option>`).join("");
+const claimOpts=v=>`<option value="">— none —</option>`+Object.entries(state.claims).map(([id,c])=>`<option value="${id}" ${id===v?"selected":""}>${esc(c.claimant)}${c.label?" · "+esc(c.label):""}</option>`).join("");
 function openDrawer(html){ $("#drawer").innerHTML=html; $("#overlay").hidden=false; const f=$("#drawer input,#drawer select"); f&&f.focus(); }
 function closeDrawer(){ $("#overlay").hidden=true; }
 const F=(id,label,type,val,extra="")=>`<div class="f"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${esc(val??"")}" ${extra}></div>`;
 
+function ledgerHTML(c){ const l=ledger(c); if(!l.rcv) return `<div class="ledger"><span>Enter the carrier's RCV to see the ledger.</span><b></b></div>`;
+  return `<div class="ledger"><span>Carrier RCV</span><b>${money(l.rcv)}</b><span>Less deductible</span><b>${money(-l.ded)}</b><span>Less paid to date</span><b>${money(-l.paid)}</b><span>Less depreciation held</span><b>${money(-l.dep)}</b>
+  <span class="tot">Coming now</span><b class="tot">${money(l.now)}</b><span>After completion photos</span><b>${money(l.remaining)}</b>${l.supp?`<span class="pend">Supplement still being asked</span><b class="pend">${money(l.supp)}</b>`:""}</div>`; }
+
 function claimForm(id){
-  const c=id?state.claims[id]:{stage:"Lead",feePct:10};
+  const c=id?state.claims[id]:{stage:"Lead",deductible:null};
   openDrawer(`<h2>${id?"Claim":"New claim"}</h2>
-    ${F("f_claimant","Claimant name","text",c.claimant,"required")}
-    <div class="f"><label for="f_contact">Linked contact</label><select id="f_contact">${contactOpts(c.contactId)}</select></div>
-    <div class="grid2">${F("f_lossType","Type of loss","text",c.lossType,'placeholder="Water — Cat 2"')}${F("f_dol","Date of loss","date",c.dol)}</div>
+    <div class="grid2">${F("f_claimant","Claimant / insured","text",c.claimant,"required")}${F("f_label","Short label","text",c.label,'placeholder="Claim 1 · kitchen"')}</div>
+    <div class="grid2"><div class="f"><label for="f_contact">Claimant contact</label><select id="f_contact">${contactOpts(c.contactId)}</select></div><div class="f"><label for="f_adjuster">Adjuster</label><select id="f_adjuster">${contactOpts(c.adjusterId,["Adjuster","Carrier Rep"])}</select></div></div>
     ${F("f_address","Property address","text",c.address)}
+    <div class="grid2">${F("f_lossType","Type of loss","text",c.lossType,'placeholder="Water — Cat 3"')}${F("f_dol","Date of loss","date",c.dol)}</div>
     <div class="grid2">${F("f_carrier","Carrier","text",c.carrier)}${F("f_claimNumber","Claim #","text",c.claimNumber)}</div>
-    <div class="grid2"><div class="f"><label for="f_stage">Stage</label><select id="f_stage">${opt(STAGES,c.stage)}</select></div>${F("f_feePct","Your fee %","number",c.feePct,'min="0" step="0.5"')}</div>
-    <div class="grid2">${F("f_estimate","Your estimate $","number",c.estimateAmount,'min="0" step="1"')}${F("f_offer","Carrier offer $","number",c.offerAmount,'min="0" step="1"')}</div>
-    <div class="grid2">${F("f_settled","Settled $","number",c.settledAmount,'min="0" step="1"')}${F("f_feeAmount","Fee override $","number",c.feeAmount,'min="0" step="1" placeholder="leave blank to use %"')}</div>
-    <div class="calc"><span>Your fee on this claim</span><b id="feePreview" class="num">${money(fee(c))}</b></div>
-    <div class="grid2">${F("f_nextAction","Next action","text",c.nextAction,'placeholder="Call adjuster re: supplement"')}${F("f_nextDate","Next action date","date",c.nextDate)}</div>
+    <div class="grid2"><div class="f"><label for="f_stage">Stage</label><select id="f_stage">${opt(STAGES,c.stage)}</select></div>${F("f_ourEstimate","Our estimate $ (RCV)","number",c.ourEstimate,'min="0" step="0.01"')}</div>
+    <h3>Carrier money</h3>
+    <div class="grid2">${F("f_rcv","Carrier RCV $ (latest)","number",c.rcv,'min="0" step="0.01"')}${F("f_deductible","Deductible $","number",c.deductible,'min="0" step="0.01"')}</div>
+    <div class="grid2">${F("f_paid","Paid to date $","number",c.paid,'min="0" step="0.01"')}${F("f_depHeld","Depreciation held $","number",c.depHeld,'min="0" step="0.01"')}</div>
+    ${F("f_supp","Supplement pending $ (asked, not agreed)","number",c.supplementPending,'min="0" step="0.01"')}
+    <div id="ledgerBox">${ledgerHTML(c)}</div>
+    <h3>Next</h3>
+    <div class="grid2">${F("f_nextAction","Next action","text",c.nextAction,'placeholder="Send completion photos to Logan"')}${F("f_nextDate","Date","date",c.nextDate)}</div>
     <div class="f"><label for="f_notes">Notes</label><textarea id="f_notes">${esc(c.notes)}</textarea></div>
     <div class="actions">${id?`<button class="btn danger spacer" id="delClaim">Delete</button>`:""}<button class="btn" id="cancel">Cancel</button><button class="btn primary" id="saveClaim">Save claim</button></div>`);
-  const recalc=()=>{ $("#feePreview").textContent=money(fee(readClaim())); };
-  ["f_estimate","f_offer","f_settled","f_feePct","f_feeAmount"].forEach(i=>$("#"+i).addEventListener("input",recalc));
+  ["f_rcv","f_deductible","f_paid","f_depHeld","f_supp"].forEach(i=>$("#"+i).addEventListener("input",()=>{$("#ledgerBox").innerHTML=ledgerHTML(readClaim());}));
   $("#saveClaim").onclick=async()=>{ const d=readClaim(); if(!d.claimant){toast("Claimant name is required");return;} d.updatedAt=new Date().toISOString(); d.createdAt=c.createdAt||d.updatedAt; await store.put("claims",id||uid(),d); closeDrawer(); toast("Claim saved"); };
   if(id) $("#delClaim").onclick=async()=>{ await store.del("claims",id); closeDrawer(); toast("Claim deleted"); };
 }
 function readClaim(){ const v=i=>$("#"+i).value.trim(); const n=i=>v(i)===""?null:+v(i);
-  return {claimant:v("f_claimant"),contactId:v("f_contact")||null,lossType:v("f_lossType"),dol:v("f_dol"),address:v("f_address"),carrier:v("f_carrier"),claimNumber:v("f_claimNumber"),stage:v("f_stage"),feePct:n("f_feePct"),estimateAmount:n("f_estimate"),offerAmount:n("f_offer"),settledAmount:n("f_settled"),feeAmount:n("f_feeAmount"),nextAction:v("f_nextAction"),nextDate:v("f_nextDate"),notes:$("#f_notes").value.trim()}; }
+  return {claimant:v("f_claimant"),label:v("f_label"),contactId:v("f_contact")||null,adjusterId:v("f_adjuster")||null,address:v("f_address"),lossType:v("f_lossType"),dol:v("f_dol"),carrier:v("f_carrier"),claimNumber:v("f_claimNumber"),stage:v("f_stage"),
+    ourEstimate:n("f_ourEstimate"),rcv:n("f_rcv"),deductible:n("f_deductible"),paid:n("f_paid"),depHeld:n("f_depHeld"),supplementPending:n("f_supp"),nextAction:v("f_nextAction"),nextDate:v("f_nextDate"),notes:$("#f_notes").value.trim()}; }
 
 function contactForm(id){
   const c=id?state.contacts[id]:{role:"Claimant"};
@@ -352,8 +383,8 @@ function taskForm(id){
 
 // ---------- events ----------
 document.querySelectorAll(".nav [role=tab]").forEach(b=>b.addEventListener("click",()=>{
-  view=b.dataset.view; document.querySelectorAll(".nav [role=tab]").forEach(x=>x.setAttribute("aria-selected",x===b));
-  ["pipeline","followups","contacts"].forEach(v=>$("#v-"+v).hidden=v!==view);
+  document.querySelectorAll(".nav [role=tab]").forEach(x=>x.setAttribute("aria-selected",x===b));
+  ["pipeline","followups","contacts"].forEach(v=>$("#v-"+v).hidden=v!==b.dataset.view);
 }));
 $("#addClaim").onclick=()=>claimForm(); $("#addContact").onclick=()=>contactForm(); $("#addTask").onclick=()=>taskForm();
 $("#qClaims").addEventListener("input",renderPipeline); $("#qContacts").addEventListener("input",renderContacts);
@@ -363,7 +394,7 @@ $("#stages").addEventListener("click",e=>{ const b=e.target.closest("[data-s]");
 $("#claimList").addEventListener("click",e=>{ const r=e.target.closest("[data-claim]"); if(r) claimForm(r.dataset.claim); });
 $("#contactList").addEventListener("click",e=>{ const r=e.target.closest("[data-contact]"); if(r) contactForm(r.dataset.contact); });
 $("#taskGroups").addEventListener("click",async e=>{
-  const tg=e.target.closest("[data-toggle]"); if(tg){ const t={...state.tasks[tg.dataset.toggle],done:tg.checked}; await store.put("tasks",tg.dataset.toggle,t); return; }
+  const tg=e.target.closest("[data-toggle]"); if(tg){ await store.put("tasks",tg.dataset.toggle,{...state.tasks[tg.dataset.toggle],done:tg.checked}); return; }
   const ed=e.target.closest("[data-edit-task]"); if(ed) taskForm(ed.dataset.editTask);
 });
 $("#overlay").addEventListener("click",e=>{ if(e.target.id==="overlay"||e.target.id==="cancel") closeDrawer(); });
